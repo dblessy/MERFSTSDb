@@ -1,6 +1,11 @@
 package com.sjsu.hackathon.merfstsdb;
 
+import android.app.DownloadManager;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -12,10 +17,29 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.sjsu.hackathon.merfstsdb.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.security.KeyPairGenerator;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+public class MainActivity extends AppCompatActivity implements DataListener {
 
     private ActivityMainBinding binding;
-
+    String DB_PATH;
+    final Context context=this;
+    private SQLiteDatabase mDataBase;
+    private static String DB_NAME ="Banking.db";
+    TextView txt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        FetchData fd = new FetchData();
+        fd.getData("GDP", "2000", "2021", "CN", this);
     }
 
+    @Override
+    public void onDataFinish(ArrayList<Data> dataList) {
+        System.out.println(dataList);
+    }
 }
