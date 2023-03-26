@@ -68,6 +68,8 @@ public class DashboardFragment extends Fragment implements DataListener {
 
         Layer formLayout = root.findViewById(R.id.mac_layer);
         Layer chartLayout = root.findViewById(R.id.mac_chart_layer);
+
+        formLayout.setVisibility(View.VISIBLE);
         chartLayout.setVisibility(View.INVISIBLE);
 
         GraphView graph = root.findViewById(R.id.graph);
