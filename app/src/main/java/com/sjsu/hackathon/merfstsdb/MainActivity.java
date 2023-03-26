@@ -5,7 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -58,6 +63,23 @@ public class MainActivity extends AppCompatActivity implements DataListener {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         FetchData fd = new FetchData();
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, fd.allowedCountries);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        Spinner spinner = findViewById(R.id.spinner);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                              @Override
+                                              public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                  String cn = parent.getItemAtPosition(position).toString();
+                                                  System.out.println(cn + " selected");
+                                              }
+
+                                              @Override
+                                              public void onNothingSelected(AdapterView<?> parent) {
+                                              }
+                                          });
+
         fd.getData("GDP", "2000", "2021", "CN", this);
     }
 
