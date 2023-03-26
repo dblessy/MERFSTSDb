@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements DataListener {
     String DB_PATH;
     final Context context=this;
     private SQLiteDatabase mDataBase;
-    private static String DB_NAME ="Banking.db";
     TextView txt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +77,12 @@ public class MainActivity extends AppCompatActivity implements DataListener {
                                               }
                                           });
         fd.getData(new DBHandler(this),"Fertilizers", "1980", "2021", "US", this);
+        AnnotationDBHandler ad = new AnnotationDBHandler(this);
+        ad.addNewData("title5", "body5");
+        System.out.println(ad.getDataList());
+        System.out.println(ad.getDataById(1));
+        System.out.println(ad.getDataById(2));
+        System.out.println(ad.getDataById(3));
     }
 
     @Override

@@ -83,7 +83,6 @@ public class FetchData {
                                 try {
                                     String year = row.getString("date");
                                     double data = row.getDouble("value");
-                                    System.out.println(data);
                                     String country = row.getJSONObject("country").getString("id");
                                     Data newData = new Data(year,
                                             data,
