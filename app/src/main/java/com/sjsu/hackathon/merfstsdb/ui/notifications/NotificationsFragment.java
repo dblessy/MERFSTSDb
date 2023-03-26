@@ -24,6 +24,8 @@ import com.sjsu.hackathon.merfstsdb.FetchData;
 import com.sjsu.hackathon.merfstsdb.MainActivity;
 import com.sjsu.hackathon.merfstsdb.R;
 import com.sjsu.hackathon.merfstsdb.databinding.FragmentNotificationsBinding;
+import com.sjsu.hackathon.merfstsdb.ui.Constants;
+import com.sjsu.hackathon.merfstsdb.ui.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,6 +87,13 @@ public class NotificationsFragment extends Fragment implements DataListener {
 
             formLayout.setVisibility(View.INVISIBLE);
             chartLayout.setVisibility(View.VISIBLE);
+
+            Button ann = root.findViewById(R.id.agri_ann);
+            if (HomeFragment.actor.equals(Constants.GOVT_OFFICER)) {
+                ann.setVisibility(View.VISIBLE);
+            } else {
+                ann.setVisibility(View.INVISIBLE);
+            }
         });
         return root;
     }

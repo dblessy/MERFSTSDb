@@ -23,6 +23,8 @@ import com.sjsu.hackathon.merfstsdb.FetchData;
 import com.sjsu.hackathon.merfstsdb.MainActivity;
 import com.sjsu.hackathon.merfstsdb.R;
 import com.sjsu.hackathon.merfstsdb.databinding.FragmentTradeBinding;
+import com.sjsu.hackathon.merfstsdb.ui.Constants;
+import com.sjsu.hackathon.merfstsdb.ui.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,8 +54,6 @@ public class TradeFragment extends Fragment implements DataListener {
         String startYear = "1990";
         String endYear = "2020";
         String country = MainActivity.country;
-
-        chartLayout.setVisibility(View.INVISIBLE);
 
         GraphView graph = root.findViewById(R.id.graph);
 
@@ -89,6 +89,14 @@ public class TradeFragment extends Fragment implements DataListener {
 
             formLayout.setVisibility(View.INVISIBLE);
             chartLayout.setVisibility(View.VISIBLE);
+
+            Button ann = root.findViewById(R.id.trade_ann);
+            if (HomeFragment.actor.equals(Constants.GOVT_OFFICER)) {
+                ann.setVisibility(View.VISIBLE);
+            } else {
+                ann.setVisibility(View.INVISIBLE);
+            }
+
         });
         return root;
     }
