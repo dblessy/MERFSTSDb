@@ -38,7 +38,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements DataListener {
-
     private ActivityMainBinding binding;
     String DB_PATH;
     final Context context=this;
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements DataListener {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
         FetchData fd = new FetchData();
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, fd.allowedCountries);
