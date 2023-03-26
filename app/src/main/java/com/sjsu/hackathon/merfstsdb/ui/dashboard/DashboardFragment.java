@@ -158,30 +158,7 @@ public class DashboardFragment extends Fragment implements DataListener {
             formLayout.setVisibility(View.INVISIBLE);
             chartLayout.setVisibility(View.INVISIBLE);
             annLayout.setVisibility(View.VISIBLE);
-            TableLayout table = root.findViewById(R.id.mac_ann_table);
-            ArrayList<Annotation> annList = ad.getDataList();
-            TableRow[] tr_head = new TableRow[annList.size()];
-            TextView[] textArray = new TextView[annList.size()];
-            for (int i = 0; i < annList.size(); i++) {
-                Annotation annObj = annList.get(i);
-                tr_head[i] = new TableRow(this.getContext());
-                tr_head[i].setId(i+1);
-                tr_head[i].setBackgroundColor(Color.GRAY);
-                tr_head[i].setLayoutParams(new TableLayout.LayoutParams(
-                        TableLayout.LayoutParams.MATCH_PARENT,
-                        TableLayout.LayoutParams.WRAP_CONTENT));
-                textArray[i] = new TextView(this.getContext());
-                textArray[i].setId(i+111);
-                textArray[i].setText(annObj.getBody());
-                textArray[i].setTextColor(Color.WHITE);
-                textArray[i].setPadding(5, 5, 5, 5);
-                tr_head[i].addView(textArray[i]);
-
-                table.addView(tr_head[i], new TableLayout.LayoutParams(
-                        TableLayout.LayoutParams.MATCH_PARENT,
-                        TableLayout.LayoutParams.WRAP_CONTENT));
-
-            }
+            refreshTable(root, ad);
             // Add code to pull annotations here
         });
 
@@ -189,10 +166,45 @@ public class DashboardFragment extends Fragment implements DataListener {
         annSub.setOnClickListener(v -> {
             EditText ann_input = root.findViewById(R.id.mac_ann_text);
             ad.addNewData("Macro Annotation", ann_input.getText().toString());
-            // Add code to submit an annotation here
+            ann_input.setText("");
+            refreshTable(root, ad);
         });
 
         return root;
+    }
+
+    private void refreshTable(View root, AnnotationDBHandler ad) {
+        TableLayout table = root.findViewById(R.id.mac_ann_table);
+        int childCount = table.getChildCount();
+
+        // Remove all rows except the first one
+        if (childCount > 1) {
+            table.removeViews(1, childCount - 1);
+        }
+
+        ArrayList<Annotation> annList = ad.getDataList();
+        TableRow[] tr_head = new TableRow[annList.size()];
+        TextView[] textArray = new TextView[annList.size()];
+        for (int i = 0; i < annList.size(); i++) {
+            Annotation annObj = annList.get(i);
+            tr_head[i] = new TableRow(this.getContext());
+            tr_head[i].setId(i+1);
+            tr_head[i].setBackgroundColor(Color.GRAY);
+            tr_head[i].setLayoutParams(new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+            textArray[i] = new TextView(this.getContext());
+            textArray[i].setId(i+111);
+            textArray[i].setText(annObj.getBody());
+            textArray[i].setTextColor(Color.WHITE);
+            textArray[i].setPadding(5, 5, 5, 5);
+            tr_head[i].addView(textArray[i]);
+
+            table.addView(tr_head[i], new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+
+        }
     }
 
 
