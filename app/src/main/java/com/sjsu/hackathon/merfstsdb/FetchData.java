@@ -74,7 +74,7 @@ public class FetchData {
                     if (response.isSuccessful()) {
                         String myResponse = response.body().string();
                         try {
-                            String tableName = tableNames.get("type");
+                            String tableName = tableNames.get(type);//I changed "type" to type and it stopped crashing
                             dbHandler.removeData(tableName, startYear, endYear);
                             JSONArray obj = new JSONArray(myResponse);
                             JSONArray list = obj.getJSONArray(1);
