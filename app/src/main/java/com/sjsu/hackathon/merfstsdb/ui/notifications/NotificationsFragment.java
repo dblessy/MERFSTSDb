@@ -132,7 +132,7 @@ public class NotificationsFragment extends Fragment implements DataListener {
             annLayout.setVisibility(View.INVISIBLE);
 
             Button ann = root.findViewById(R.id.agri_ann);
-            if (HomeFragment.actor.equals(Constants.GOVT_OFFICER)) {
+            if (HomeFragment.actor.equals(Constants.MAC_ECC)) {
                 ann.setVisibility(View.VISIBLE);
             } else {
                 ann.setVisibility(View.INVISIBLE);
