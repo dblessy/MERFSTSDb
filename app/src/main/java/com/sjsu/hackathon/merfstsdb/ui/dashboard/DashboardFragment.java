@@ -70,9 +70,11 @@ public class DashboardFragment extends Fragment implements DataListener {
 
         Layer formLayout = root.findViewById(R.id.mac_layer);
         Layer chartLayout = root.findViewById(R.id.mac_chart_layer);
+        Layer annLayout = root.findViewById(R.id.mac_ann_layer);
 
         formLayout.setVisibility(View.VISIBLE);
         chartLayout.setVisibility(View.INVISIBLE);
+        annLayout.setVisibility(View.INVISIBLE);
 
         GraphView graph = root.findViewById(R.id.graph);
 
@@ -110,6 +112,7 @@ public class DashboardFragment extends Fragment implements DataListener {
 
             formLayout.setVisibility(View.INVISIBLE);
             chartLayout.setVisibility(View.VISIBLE);
+            annLayout.setVisibility(View.INVISIBLE);
 
             Button ann = root.findViewById(R.id.mac_ann);
             if (HomeFragment.actor.equals(Constants.GOVT_OFFICER)) {
@@ -119,8 +122,23 @@ public class DashboardFragment extends Fragment implements DataListener {
             }
         });
 
+        Button ann = root.findViewById(R.id.mac_ann);
+        ann.setOnClickListener(v -> {
+            formLayout.setVisibility(View.INVISIBLE);
+            chartLayout.setVisibility(View.INVISIBLE);
+            annLayout.setVisibility(View.VISIBLE);
+
+            // Add code to pull annotations here
+        });
+
+        Button annSub = root.findViewById(R.id.mac_ann_submit);
+        annSub.setOnClickListener(v -> {
+            // Add code to submit an annotation here
+        });
+        
         return root;
     }
+
 
     @Override
     public void onDestroyView() {
