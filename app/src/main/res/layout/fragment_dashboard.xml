@@ -28,7 +28,7 @@
             android:id="@+id/reserves"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GDP (%)" />
+            android:text="GDP (USD)" />
 
         <CheckBox
             android:id="@+id/gni"
@@ -40,7 +40,7 @@
             android:id="@+id/total_debt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="FDI Outflows (USD)" />
+            android:text="FDI Outflows (%)" />
 
         <Button
             android:id="@+id/mac_show"

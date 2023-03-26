@@ -28,7 +28,7 @@
             android:id="@+id/reserves"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contribution To GDP (USD)" />
+            android:text="Contribution To GDP (%)" />
 
         <CheckBox
             android:id="@+id/total_debt"
