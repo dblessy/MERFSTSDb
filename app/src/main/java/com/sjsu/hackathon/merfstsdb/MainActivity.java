@@ -39,6 +39,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements DataListener {
     private ActivityMainBinding binding;
+    public static String country = "US";
     String DB_PATH;
     final Context context=this;
     private SQLiteDatabase mDataBase;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements DataListener {
                                               public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                                   String cn = parent.getItemAtPosition(position).toString();
                                                   System.out.println(cn + " selected");
+                                                  country = cn;
                                               }
 
                                               @Override
