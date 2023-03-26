@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -46,7 +47,6 @@ public class DashboardFragment extends Fragment implements DataListener {
     private boolean GDP = false;
     private boolean FDII = false;
     private boolean FDIO = false;
-    private boolean IEF = false;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -62,8 +62,10 @@ public class DashboardFragment extends Fragment implements DataListener {
 
         Button show = root.findViewById(R.id.mac_show);
 
-        String startYear = "1990";
-        String endYear = "2020";
+        EditText startY = root.findViewById(R.id.mac_start);
+        String startYear = startY.getText().toString();
+        EditText endY = root.findViewById(R.id.mac_end_year);
+        String endYear = endY.getText().toString();
         String country = MainActivity.country;
 
         System.out.println(country);
@@ -78,25 +80,48 @@ public class DashboardFragment extends Fragment implements DataListener {
 
         GraphView graph = root.findViewById(R.id.graph);
 
-        graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
-        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        //graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+        //graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
 
         //Build Graph
         //Default show 1980 to 2020
         FetchData fd = new FetchData();
 
-        System.out.println("---------------------"+GDP);
+        Button applyYears = root.findViewById(R.id.mac_button);
+        applyYears.setOnClickListener(view -> {
 
-        //fd.getData(new DBHandler(this.getContext()),"Fertilizers", startYear, endYear, country, this);
+            //System.out.println(startYear);
+
+            EditText startY2 = root.findViewById(R.id.mac_start);
+            String startYear2 = startY2.getText().toString();
+            EditText endY2 = root.findViewById(R.id.mac_end_year);
+            String endYear2 = endY2.getText().toString();
+
+            graph.removeAllSeries();
+
+            if(GDP){
+                fd.getData(new DBHandler(this.getContext()),"GDP", startYear2, endYear2, country, this);
+            }
+
+            if(FDII){
+                fd.getData(new DBHandler(this.getContext()),"FDI Inflows", startYear2, endYear2, country, this);
+            }
+
+            if(FDIO){
+                fd.getData(new DBHandler(this.getContext()),"FDI Outflows", startYear2, endYear2, country, this);
+            }
+
+        });
 
         show.setOnClickListener(view -> {
             CheckBox gdpBox = root.findViewById(R.id.reserves);
-            System.out.println("___________"+gdpBox.isChecked());
             GDP = gdpBox.isChecked();
             CheckBox gniBox = root.findViewById(R.id.gni);
             FDII = gniBox.isChecked();
             CheckBox totalBox = root.findViewById(R.id.total_debt);
             FDIO = totalBox.isChecked();
+
+            graph.removeAllSeries();
 
             if(GDP){
                 fd.getData(new DBHandler(this.getContext()),"GDP", startYear, endYear, country, this);

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,10 @@ public class NotificationsFragment extends Fragment implements DataListener {
 
     private FragmentNotificationsBinding binding;
 
+    private boolean GDP = false;
+    private boolean FDII = false;
+    private boolean FDIO = false;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         NotificationsViewModel notificationsViewModel =
@@ -52,26 +57,57 @@ public class NotificationsFragment extends Fragment implements DataListener {
         formLayout.setVisibility(View.VISIBLE);
         chartLayout.setVisibility(View.INVISIBLE);
 
-        String startYear = "1990";
-        String endYear = "2020";
+        EditText startY = root.findViewById(R.id.agri_start);
+        String startYear = startY.getText().toString();
+        EditText endY = root.findViewById(R.id.agri_end_year);
+        String endYear = endY.getText().toString();
         String country = MainActivity.country;
 
         chartLayout.setVisibility(View.INVISIBLE);
 
         GraphView graph = root.findViewById(R.id.graph);
 
-        graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
-        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        //graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+        //graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
 
         //Build Graph
         //Default show 1980 to 2020
         FetchData fd = new FetchData();
 
+        Button applyYears = root.findViewById(R.id.agri_button);
+        applyYears.setOnClickListener(view -> {
+
+            //System.out.println(startYear);
+
+            EditText startY2 = root.findViewById(R.id.agri_start);
+            String startYear2 = startY2.getText().toString();
+            EditText endY2 = root.findViewById(R.id.agri_end_year);
+            String endYear2 = endY2.getText().toString();
+
+            graph.removeAllSeries();
+
+            if(GDP){
+                fd.getData(new DBHandler(this.getContext()),"Contribution To GDP", startYear2, endYear2, country, this);
+            }
+
+            if(FDII){
+                fd.getData(new DBHandler(this.getContext()),"Fertilizers", startYear2, endYear2, country, this);
+            }
+
+            if(FDIO){
+                fd.getData(new DBHandler(this.getContext()),"Fertilizer Production", startYear2, endYear2, country, this);
+            }
+
+        });
+
         show.setOnClickListener(view -> {
 
             CheckBox gdpBox = root.findViewById(R.id.reserves);
+            GDP = gdpBox.isChecked();
             CheckBox gniBox = root.findViewById(R.id.total_debt);
+            FDII = gniBox.isChecked();
             CheckBox totalBox = root.findViewById(R.id.gni_curr);
+            FDIO = totalBox.isChecked();
 
             if(gdpBox.isChecked()){//first box
                 fd.getData(new DBHandler(this.getContext()),"Contribution To GDP", startYear, endYear, country, this);
