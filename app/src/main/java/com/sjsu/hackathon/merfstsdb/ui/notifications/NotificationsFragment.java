@@ -47,6 +47,9 @@ public class NotificationsFragment extends Fragment implements DataListener {
         Layer formLayout = root.findViewById(R.id.agri_form_layer);
         Layer chartLayout = root.findViewById(R.id.agri_chart_layer);
 
+        formLayout.setVisibility(View.VISIBLE);
+        chartLayout.setVisibility(View.INVISIBLE);
+
         String startYear = "1990";
         String endYear = "2020";
         String country = MainActivity.country;
@@ -61,7 +64,6 @@ public class NotificationsFragment extends Fragment implements DataListener {
         //Build Graph
         //Default show 1980 to 2020
         FetchData fd = new FetchData();
-
 
         show.setOnClickListener(view -> {
 

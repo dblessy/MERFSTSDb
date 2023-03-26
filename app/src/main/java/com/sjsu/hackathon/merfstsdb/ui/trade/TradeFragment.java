@@ -46,6 +46,9 @@ public class TradeFragment extends Fragment implements DataListener {
         Layer formLayout = root.findViewById(R.id.form_layer);
         Layer chartLayout = root.findViewById(R.id.trade_layer);
 
+        formLayout.setVisibility(View.VISIBLE);
+        chartLayout.setVisibility(View.INVISIBLE);
+
         String startYear = "1990";
         String endYear = "2020";
         String country = MainActivity.country;
