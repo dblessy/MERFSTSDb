@@ -7,16 +7,47 @@
     tools:context=".ui.home.HomeFragment">
 
     <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:id="@+id/textView3"
+        android:layout_width="213dp"
+        android:layout_height="101dp"
+        android:background="#2196F3"
+        android:text="Welcome To Macroeconomic Food Secuirty App"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textColor="#F8F8F8"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.435" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="166dp"
+        android:layout_height="65dp"
+        android:text="Macroeconomic Researcher"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.893" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="166sp"
+        android:layout_height="66dp"
+        android:text="Government Official"
+        android:textAlignment="center"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.936"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.893" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
