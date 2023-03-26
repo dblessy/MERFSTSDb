@@ -31,12 +31,6 @@
             android:text="Contribution To GDP" />
 
         <CheckBox
-            android:id="@+id/gni"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Credit" />
-
-        <CheckBox
             android:id="@+id/total_debt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,7 +58,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.301"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 
     <androidx.constraintlayout.helper.widget.Layer
         android:id="@+id/agri_form_layer"

@@ -42,12 +42,6 @@
             android:layout_height="wrap_content"
             android:text="FDI Outflows (USD)" />
 
-        <CheckBox
-            android:id="@+id/gni_curr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Import / Export Flow" />
-
         <Button
             android:id="@+id/mac_show"
             android:layout_width="match_parent"

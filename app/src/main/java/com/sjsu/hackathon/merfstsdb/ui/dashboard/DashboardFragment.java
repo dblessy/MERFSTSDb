@@ -91,8 +91,6 @@ public class DashboardFragment extends Fragment implements DataListener {
             FDII = gniBox.isChecked();
             CheckBox totalBox = root.findViewById(R.id.total_debt);
             FDIO = totalBox.isChecked();
-            CheckBox currBox = root.findViewById(R.id.gni_curr);
-            IEF = currBox.isChecked();
 
             if(GDP){
                 fd.getData(new DBHandler(this.getContext()),"GDP", startYear, endYear, country, this);
