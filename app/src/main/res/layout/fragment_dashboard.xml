@@ -28,13 +28,13 @@
             android:id="@+id/reserves"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GDP (USD)" />
+            android:text="GDP (%)" />
 
         <CheckBox
             android:id="@+id/gni"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="FDI Inflows (USD)" />
+            android:text="FDI Inflows (%)" />
 
         <CheckBox
             android:id="@+id/total_debt"

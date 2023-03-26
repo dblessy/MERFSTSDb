@@ -28,25 +28,25 @@
             android:id="@+id/reserves"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reserves" />
+            android:text="Reserves (Reserves/(Imports/12))" />
 
         <CheckBox
             android:id="@+id/gni"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GNI" />
+            android:text="GNI (USD)" />
 
         <CheckBox
             android:id="@+id/total_debt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Total Debt" />
+            android:text="Total Debt (%)" />
 
         <CheckBox
             android:id="@+id/gni_curr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GNI (Current USD)" />
+            android:text="GNI Current (USD)" />
 
         <Button
             android:id="@+id/trade_show"
