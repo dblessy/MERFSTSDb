@@ -93,6 +93,7 @@ public class FetchData {
                                     System.out.println("Skip");
                                 }
                             }
+//                            System.out.println(dataList);
                             listener.onDataFinish(dataList);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);

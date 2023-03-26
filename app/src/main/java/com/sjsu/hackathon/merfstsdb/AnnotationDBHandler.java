@@ -82,7 +82,7 @@ public class AnnotationDBHandler extends SQLiteOpenHelper {
     public ArrayList<Annotation> getDataList() {
         ArrayList<Annotation> dataList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY id DESC", null);
         if (cursor.moveToFirst()) {
             do {
                 // on below line we are adding the data from

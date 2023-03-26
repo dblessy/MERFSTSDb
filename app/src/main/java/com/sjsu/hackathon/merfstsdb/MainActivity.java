@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements DataListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FetchData fd = new FetchData();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -60,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements DataListener {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-        FetchData fd = new FetchData();
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, fd.allowedCountries);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -78,13 +78,13 @@ public class MainActivity extends AppCompatActivity implements DataListener {
                                               public void onNothingSelected(AdapterView<?> parent) {
                                               }
                                           });
-        fd.getData(new DBHandler(this),"Fertilizers", "1980", "2021", "US", this);
+//        fd.getData(new DBHandler(this),"FDI Inflows", "1980", "2021", "US", this);
         AnnotationDBHandler ad = new AnnotationDBHandler(this);
-        ad.addNewData("title5", "body5");
+//        ad.addNewData("title5", "body5");
         System.out.println(ad.getDataList());
-        System.out.println(ad.getDataById(1));
-        System.out.println(ad.getDataById(2));
-        System.out.println(ad.getDataById(3));
+//        System.out.println(ad.getDataById(1));
+//        System.out.println(ad.getDataById(2));
+//        System.out.println(ad.getDataById(3));
     }
 
     @Override

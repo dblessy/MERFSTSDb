@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.sjsu.hackathon.merfstsdb.Annotation;
+import com.sjsu.hackathon.merfstsdb.AnnotationDBHandler;
 import com.sjsu.hackathon.merfstsdb.DBHandler;
 import com.sjsu.hackathon.merfstsdb.Data;
 import com.sjsu.hackathon.merfstsdb.DataListener;
@@ -88,16 +92,16 @@ public class NotificationsFragment extends Fragment implements DataListener {
 
             graph.removeAllSeries();
 
-            if(GDP){
-                fd.getData(new DBHandler(this.getContext()),"Contribution To GDP", startYear2, endYear2, country, this);
+            if (GDP) {
+                fd.getData(new DBHandler(this.getContext()), "Contribution To GDP", startYear2, endYear2, country, this);
             }
 
-            if(FDII){
-                fd.getData(new DBHandler(this.getContext()),"Fertilizers", startYear2, endYear2, country, this);
+            if (FDII) {
+                fd.getData(new DBHandler(this.getContext()), "Fertilizers", startYear2, endYear2, country, this);
             }
 
-            if(FDIO){
-                fd.getData(new DBHandler(this.getContext()),"Fertilizer Production", startYear2, endYear2, country, this);
+            if (FDIO) {
+                fd.getData(new DBHandler(this.getContext()), "Fertilizer Production", startYear2, endYear2, country, this);
             }
 
         });
@@ -111,16 +115,16 @@ public class NotificationsFragment extends Fragment implements DataListener {
             CheckBox totalBox = root.findViewById(R.id.gni_curr);
             FDIO = totalBox.isChecked();
 
-            if(gdpBox.isChecked()){//first box
-                fd.getData(new DBHandler(this.getContext()),"Contribution To GDP", startYear, endYear, country, this);
+            if (gdpBox.isChecked()) {//first box
+                fd.getData(new DBHandler(this.getContext()), "Contribution To GDP", startYear, endYear, country, this);
             }
 
-            if(gniBox.isChecked()){//second
-                fd.getData(new DBHandler(this.getContext()),"Fertilizers", startYear, endYear, country, this);
+            if (gniBox.isChecked()) {//second
+                fd.getData(new DBHandler(this.getContext()), "Fertilizers", startYear, endYear, country, this);
             }
 
-            if(totalBox.isChecked()){//third box
-                fd.getData(new DBHandler(this.getContext()),"Fertilizer Production", startYear, endYear, country, this);
+            if (totalBox.isChecked()) {//third box
+                fd.getData(new DBHandler(this.getContext()), "Fertilizer Production", startYear, endYear, country, this);
             }
 
             formLayout.setVisibility(View.INVISIBLE);
@@ -135,18 +139,44 @@ public class NotificationsFragment extends Fragment implements DataListener {
             }
         });
 
+        AnnotationDBHandler ad = new AnnotationDBHandler(this.getContext());
         Button ann = root.findViewById(R.id.agri_ann);
         ann.setOnClickListener(v -> {
             formLayout.setVisibility(View.INVISIBLE);
             chartLayout.setVisibility(View.INVISIBLE);
             annLayout.setVisibility(View.VISIBLE);
+            TableLayout table = root.findViewById(R.id.agri_ann_table);
+            ArrayList<Annotation> annList = ad.getDataList();
+            TableRow[] tr_head = new TableRow[annList.size()];
+            TextView[] textArray = new TextView[annList.size()];
+            for (int i = 0; i < annList.size(); i++) {
+                Annotation annObj = annList.get(i);
+                tr_head[i] = new TableRow(this.getContext());
+                tr_head[i].setId(i + 1);
+                tr_head[i].setBackgroundColor(Color.GRAY);
+                tr_head[i].setLayoutParams(new TableLayout.LayoutParams(
+                        TableLayout.LayoutParams.MATCH_PARENT,
+                        TableLayout.LayoutParams.WRAP_CONTENT));
+                textArray[i] = new TextView(this.getContext());
+                textArray[i].setId(i + 111);
+                textArray[i].setText(annObj.getBody());
+                textArray[i].setTextColor(Color.WHITE);
+                textArray[i].setPadding(5, 5, 5, 5);
+                tr_head[i].addView(textArray[i]);
 
+                table.addView(tr_head[i], new TableLayout.LayoutParams(
+                        TableLayout.LayoutParams.MATCH_PARENT,
+                        TableLayout.LayoutParams.WRAP_CONTENT));
+
+            }
             // Add code to pull annotations here
         });
 
         Button annSub = root.findViewById(R.id.agri_ann_submit);
         annSub.setOnClickListener(v -> {
             // Add code to submit an annotation here
+            EditText ann_input = root.findViewById(R.id.agri_ann_text);
+            ad.addNewData("Agriculture Annotation", ann_input.getText().toString());
         });
 
         return root;
