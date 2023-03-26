@@ -7,6 +7,7 @@
     tools:context=".ui.dashboard.DashboardFragment">
 
     <LinearLayout
+        android:id="@+id/mac_layout"
         android:layout_width="358dp"
         android:layout_height="263dp"
         android:orientation="vertical"
@@ -48,23 +49,45 @@
             android:text="Import / Export Flow" />
 
         <Button
-            android:id="@+id/trade_show"
+            android:id="@+id/mac_show"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Show" />
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/mac_chart_layout"
+        android:layout_width="358dp"
+        android:layout_height="263dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.301"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.helper.widget.Layer
+        android:id="@+id/mac_layer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="mac_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.helper.widget.Layer
+        android:id="@+id/mac_chart_layer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="314dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="314dp"
+        app:constraint_referenced_ids="mac_chart_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
