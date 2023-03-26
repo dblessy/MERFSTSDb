@@ -1,11 +1,13 @@
 package com.sjsu.hackathon.merfstsdb.ui.dashboard;
 
 import android.content.Context;
+import android.content.SyncAdapterType;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -39,6 +41,11 @@ public class DashboardFragment extends Fragment implements DataListener {
 
     private FragmentDashboardBinding binding;
     //final Context context=this;
+    private boolean GDP = false;
+    private boolean FDII = false;
+    private boolean FDIO = false;
+    private boolean IEF = false;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,20 +63,49 @@ public class DashboardFragment extends Fragment implements DataListener {
         String startYear = "1990";
         String endYear = "2020";
         String country = MainActivity.country;
+
         System.out.println(country);
 
-        GraphView graph = root.findViewById(R.id.graph);
         Layer formLayout = root.findViewById(R.id.mac_layer);
         Layer chartLayout = root.findViewById(R.id.mac_chart_layer);
         chartLayout.setVisibility(View.INVISIBLE);
+
+        GraphView graph = root.findViewById(R.id.graph);
+
+        graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
 
         //Build Graph
         //Default show 1980 to 2020
         FetchData fd = new FetchData();
 
-        fd.getData(new DBHandler(this.getContext()),"Fertilizers", startYear, endYear, country, this);
+        System.out.println("---------------------"+GDP);
+
+        //fd.getData(new DBHandler(this.getContext()),"Fertilizers", startYear, endYear, country, this);
 
         show.setOnClickListener(view -> {
+            CheckBox gdpBox = root.findViewById(R.id.reserves);
+            System.out.println("___________"+gdpBox.isChecked());
+            GDP = gdpBox.isChecked();
+            CheckBox gniBox = root.findViewById(R.id.gni);
+            FDII = gniBox.isChecked();
+            CheckBox totalBox = root.findViewById(R.id.total_debt);
+            FDIO = totalBox.isChecked();
+            CheckBox currBox = root.findViewById(R.id.gni_curr);
+            IEF = currBox.isChecked();
+
+            if(GDP){
+                fd.getData(new DBHandler(this.getContext()),"GDP", startYear, endYear, country, this);
+            }
+
+            if(FDII){
+                fd.getData(new DBHandler(this.getContext()),"FDI Inflows", startYear, endYear, country, this);
+            }
+
+            if(FDIO){
+                fd.getData(new DBHandler(this.getContext()),"FDI Outflows", startYear, endYear, country, this);
+            }
+
             formLayout.setVisibility(View.INVISIBLE);
             chartLayout.setVisibility(View.VISIBLE);
         });
@@ -77,13 +113,11 @@ public class DashboardFragment extends Fragment implements DataListener {
         return root;
     }
 
-/*    @Override
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
- */
 
     @Override
     public void onDataFinish(ArrayList<Data> dataList) {
@@ -101,11 +135,12 @@ public class DashboardFragment extends Fragment implements DataListener {
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(myData);
         graph.addSeries(series);
 
-
     }
 
     @Override
     public void onDataFail(String reason) {
+
+        System.out.println(reason);
 
     }
 }
