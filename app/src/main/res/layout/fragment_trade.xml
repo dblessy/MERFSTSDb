@@ -4,4 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.trade.TradeFragment"/>
+    tools:context=".ui.trade.TradeFragment">
+
+    <LinearLayout
+        android:layout_width="358dp"
+        android:layout_height="263dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.301"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trade"
+            android:textAlignment="center" />
+
+        <CheckBox
+            android:id="@+id/reserves"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reserves" />
+
+        <CheckBox
+            android:id="@+id/gni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GNI" />
+
+        <CheckBox
+            android:id="@+id/total_debt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Debt" />
+
+        <CheckBox
+            android:id="@+id/gni_curr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GNI (Current USD)" />
+
+        <Button
+            android:id="@+id/trade_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
