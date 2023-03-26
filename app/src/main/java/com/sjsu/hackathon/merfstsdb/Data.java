@@ -2,9 +2,9 @@ package com.sjsu.hackathon.merfstsdb;
 
 public class Data {
     private String year;
-    private long data;
+    private double data;
     private String country;
-    public Data(String year, long data, String country) {
+    public Data(String year, double data, String country) {
         this.year = year;
         this.data = data;
         this.country = country;
@@ -12,7 +12,7 @@ public class Data {
     public String getYear() {
         return year;
     }
-    public long getData() {
+    public double getData() {
         return data;
     }
     public String getCountry() {

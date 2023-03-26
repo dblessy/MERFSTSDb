@@ -80,14 +80,19 @@ public class FetchData {
                             JSONArray list = obj.getJSONArray(1);
                             for (int i = 0; i < list.length(); i++) {
                                 JSONObject row = list.getJSONObject(i);
-                                String year = row.getString("date");
-                                long data = row.getLong("value");
-                                String country = row.getJSONObject("country").getString("id");
-                                Data newData = new Data(year,
-                                        data,
-                                        country);
-                                dataList.add(newData);
-                                dbHandler.addNewData(tableName, year, data, country);
+                                try {
+                                    String year = row.getString("date");
+                                    double data = row.getDouble("value");
+                                    System.out.println(data);
+                                    String country = row.getJSONObject("country").getString("id");
+                                    Data newData = new Data(year,
+                                            data,
+                                            country);
+                                    dataList.add(newData);
+                                    dbHandler.addNewData(tableName, year, data, country);
+                                } catch (Exception e) {
+                                    System.out.println("Skip");
+                                }
                             }
                             listener.onDataFinish(dataList);
                         } catch (JSONException e) {

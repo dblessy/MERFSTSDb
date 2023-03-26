@@ -16,7 +16,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String DB_NAME = "hackathon";
 
     // below int is our database version
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
 
     // below variable is for our table name.
     private static final String[] TABLE_NAMES = {"gdp", "fdi_inflows", "fdi_outflows", "ie_flow",
@@ -52,7 +52,6 @@ public class DBHandler extends SQLiteOpenHelper {
                     + YEAR_COL + " TEXT, "
                     + DATA_COL + " INTEGER,"
                     + COUNTRY_COL + " TEXT)";
-
             // at last we are calling a exec sql
             // method to execute above sql query
             db.execSQL(query);
@@ -60,7 +59,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     // this method is use to add new course to our sqlite database.
-    public void addNewData(String tableName, String year, long data, String country) {
+    public void addNewData(String tableName, String year, double data, String country) {
         // on below line we are creating a variable for
         // our sqlite database and calling writable method
         // as we are writing data in our database.

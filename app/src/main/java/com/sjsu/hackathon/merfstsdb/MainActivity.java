@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements DataListener {
                                               public void onNothingSelected(AdapterView<?> parent) {
                                               }
                                           });
-        fd.getData(new DBHandler(this),"FDI Inflows", "2004", "2021", "US", this);
+        fd.getData(new DBHandler(this),"Fertilizers", "1980", "2021", "US", this);
     }
 
     @Override
