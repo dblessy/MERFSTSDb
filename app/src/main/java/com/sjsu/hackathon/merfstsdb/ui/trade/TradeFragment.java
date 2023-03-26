@@ -52,9 +52,11 @@ public class TradeFragment extends Fragment implements DataListener {
         Button show = root.findViewById(R.id.trade_show);
         Layer formLayout = root.findViewById(R.id.form_layer);
         Layer chartLayout = root.findViewById(R.id.trade_layer);
+        Layer annLayout = root.findViewById(R.id.trade_ann_layer);
 
         formLayout.setVisibility(View.VISIBLE);
         chartLayout.setVisibility(View.INVISIBLE);
+        annLayout.setVisibility(View.INVISIBLE);
 
         EditText startY = root.findViewById(R.id.trade_start);
         String startYear = startY.getText().toString();
@@ -130,6 +132,7 @@ public class TradeFragment extends Fragment implements DataListener {
 
             formLayout.setVisibility(View.INVISIBLE);
             chartLayout.setVisibility(View.VISIBLE);
+            annLayout.setVisibility(View.INVISIBLE);
 
             Button ann = root.findViewById(R.id.trade_ann);
             if (HomeFragment.actor.equals(Constants.GOVT_OFFICER)) {
@@ -139,6 +142,21 @@ public class TradeFragment extends Fragment implements DataListener {
             }
 
         });
+
+        Button ann = root.findViewById(R.id.trade_ann);
+        ann.setOnClickListener(v -> {
+            formLayout.setVisibility(View.INVISIBLE);
+            chartLayout.setVisibility(View.INVISIBLE);
+            annLayout.setVisibility(View.VISIBLE);
+
+            // Add code to pull annotations here
+        });
+
+        Button annSub = root.findViewById(R.id.trade_ann_submit);
+        annSub.setOnClickListener(v -> {
+            // Add code to submit an annotation here
+        });
+
         return root;
     }
 

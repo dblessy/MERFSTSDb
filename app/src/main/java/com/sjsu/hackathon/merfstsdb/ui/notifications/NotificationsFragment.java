@@ -53,9 +53,11 @@ public class NotificationsFragment extends Fragment implements DataListener {
         Button show = root.findViewById(R.id.agri_show);
         Layer formLayout = root.findViewById(R.id.agri_form_layer);
         Layer chartLayout = root.findViewById(R.id.agri_chart_layer);
+        Layer annLayout = root.findViewById(R.id.agri_ann_layer);
 
         formLayout.setVisibility(View.VISIBLE);
         chartLayout.setVisibility(View.INVISIBLE);
+        annLayout.setVisibility(View.INVISIBLE);
 
         EditText startY = root.findViewById(R.id.agri_start);
         String startYear = startY.getText().toString();
@@ -123,6 +125,7 @@ public class NotificationsFragment extends Fragment implements DataListener {
 
             formLayout.setVisibility(View.INVISIBLE);
             chartLayout.setVisibility(View.VISIBLE);
+            annLayout.setVisibility(View.INVISIBLE);
 
             Button ann = root.findViewById(R.id.agri_ann);
             if (HomeFragment.actor.equals(Constants.GOVT_OFFICER)) {
@@ -131,6 +134,21 @@ public class NotificationsFragment extends Fragment implements DataListener {
                 ann.setVisibility(View.INVISIBLE);
             }
         });
+
+        Button ann = root.findViewById(R.id.agri_ann);
+        ann.setOnClickListener(v -> {
+            formLayout.setVisibility(View.INVISIBLE);
+            chartLayout.setVisibility(View.INVISIBLE);
+            annLayout.setVisibility(View.VISIBLE);
+
+            // Add code to pull annotations here
+        });
+
+        Button annSub = root.findViewById(R.id.agri_ann_submit);
+        annSub.setOnClickListener(v -> {
+            // Add code to submit an annotation here
+        });
+
         return root;
     }
 

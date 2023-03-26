@@ -160,7 +160,7 @@ public class DashboardFragment extends Fragment implements DataListener {
         annSub.setOnClickListener(v -> {
             // Add code to submit an annotation here
         });
-        
+
         return root;
     }
 
