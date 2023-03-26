@@ -33,6 +33,10 @@ public class TradeFragment extends Fragment {
         Button show = root.findViewById(R.id.trade_show);
         Layer formLayout = root.findViewById(R.id.form_layer);
         Layer chartLayout = root.findViewById(R.id.trade_layer);
+
+        formLayout.setVisibility(View.VISIBLE);
+        chartLayout.setVisibility(View.INVISIBLE);
+
         show.setOnClickListener(view -> {
             formLayout.setVisibility(View.INVISIBLE);
             chartLayout.setVisibility(View.VISIBLE);

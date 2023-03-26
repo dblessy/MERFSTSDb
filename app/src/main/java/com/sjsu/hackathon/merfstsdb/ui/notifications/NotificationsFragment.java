@@ -33,6 +33,10 @@ public class NotificationsFragment extends Fragment {
         Button show = root.findViewById(R.id.agri_show);
         Layer formLayout = root.findViewById(R.id.agri_form_layer);
         Layer chartLayout = root.findViewById(R.id.agri_chart_layer);
+
+        formLayout.setVisibility(View.VISIBLE);
+        chartLayout.setVisibility(View.INVISIBLE);
+
         show.setOnClickListener(view -> {
             formLayout.setVisibility(View.INVISIBLE);
             chartLayout.setVisibility(View.VISIBLE);
