@@ -1,6 +1,5 @@
 package com.sjsu.hackathon.merfstsdb;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +17,7 @@ import okhttp3.Response;
 public class FetchData {
     ArrayList<String> allowedCountries;
     HashMap<String, String> dataTypes;
+    HashMap<String, String> tableNames;
 
     public FetchData() {
         allowedCountries = new ArrayList<String>();
@@ -35,13 +35,28 @@ public class FetchData {
         dataTypes.put("GNI", "FI.RES.TOTL.CD");
         dataTypes.put("Total Debt", "DT.TDS.DECT.GN.ZS");
         dataTypes.put("GNI Current", "NY.GNP.MKTP.CD");
+        tableNames = new HashMap<String, String>();
+        tableNames.put("GDP", "gdp");
+        tableNames.put("FDI Inflows", "fdi_inflows");
+        tableNames.put("FDI Outflows", "fdi_outflows");
+        tableNames.put("Contribution To GDP", "con_gdp");
+        tableNames.put("Fertilizers", "fertilizer");
+        tableNames.put("Fertilizer Production", "fertilizer_prod");
+        tableNames.put("Reserves", "reserves");
+        tableNames.put("GNI", "gni");
+        tableNames.put("Total Debt", "debt");
+        tableNames.put("GNI Current", "gni_cur");
     }
 
-    public ArrayList<Data> getData(String type, String startYear, String endYear, String country,
+    public void getData(DBHandler dbHandler, String type, String startYear, String endYear, String country,
                                    DataListener listener) {
         ArrayList<Data> dataList = new ArrayList<Data>();
         OkHttpClient client = new OkHttpClient();
-        if (allowedCountries.contains(country) && dataTypes.containsKey(type)) {
+        if (!allowedCountries.contains(country)) {
+            listener.onDataFail("No such country");
+        } else if (!dataTypes.containsKey(type)) {
+            listener.onDataFail("No such type");
+        } else {
             String url = "https://api.worldbank.org/v2/country/" + country +
                     "/indicator/" + dataTypes.get(type) + "?format=json&&date=" +
                     startYear + ":" + endYear+
@@ -59,14 +74,20 @@ public class FetchData {
                     if (response.isSuccessful()) {
                         String myResponse = response.body().string();
                         try {
+                            String tableName = tableNames.get("type");
+                            dbHandler.removeData(tableName, startYear, endYear);
                             JSONArray obj = new JSONArray(myResponse);
                             JSONArray list = obj.getJSONArray(1);
                             for (int i = 0; i < list.length(); i++) {
                                 JSONObject row = list.getJSONObject(i);
-                                Data data = new Data(row.getString("date"),
-                                        row.getLong("value"),
-                                        row.getJSONObject("country").getString("id"));
-                                dataList.add(data);
+                                String year = row.getString("date");
+                                long data = row.getLong("value");
+                                String country = row.getJSONObject("country").getString("id");
+                                Data newData = new Data(year,
+                                        data,
+                                        country);
+                                dataList.add(newData);
+                                dbHandler.addNewData(tableName, year, data, country);
                             }
                             listener.onDataFinish(dataList);
                         } catch (JSONException e) {
@@ -76,6 +97,16 @@ public class FetchData {
                 }
             });
         }
-        return dataList;
+    }
+
+    public void getOfflineData(DBHandler dbHandler, String type, String startYear, String endYear, String country,
+                          DataListener listener) {
+        if (!allowedCountries.contains(country)) {
+            listener.onDataFail("No such country");
+        } else if (!tableNames.containsKey(type)) {
+            listener.onDataFail("No such type");
+        } else {
+            listener.onDataFinish(dbHandler.getData(tableNames.get("type"), startYear, endYear, country));
+        }
     }
 }

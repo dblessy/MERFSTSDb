@@ -79,12 +79,16 @@ public class MainActivity extends AppCompatActivity implements DataListener {
                                               public void onNothingSelected(AdapterView<?> parent) {
                                               }
                                           });
-
-        fd.getData("GDP", "2000", "2021", "CN", this);
+        fd.getData(new DBHandler(this),"GDP", "2000", "2021", "CN", this);
     }
 
     @Override
     public void onDataFinish(ArrayList<Data> dataList) {
         System.out.println(dataList);
+    }
+
+    @Override
+    public void onDataFail(String reason) {
+        System.out.println(reason);
     }
 }
